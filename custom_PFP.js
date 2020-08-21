@@ -14,21 +14,22 @@ function custom_PFP() {
         Iarsi: `<img src="https://cdn.discordapp.com/avatars/237164761832357890/946b91288f2a3db4542db57fdaa0e1e7.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         AIassimilator: `<img src="https://cdn.discordapp.com/avatars/392593613575684096/72c2795027b5a823a912fd21a866211b.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         CyborgHornet: `<img src="https://cdn.discordapp.com/avatars/674707988581187668/ebd0e7ce2b0ccc5612bf1dc44279bb27.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
-        Pope: `<img src="https://cdn.discordapp.com/avatars/213250702141554688/6fb143181635b10a32b64089839b75e7.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
+        Popecicle: `<img src="https://cdn.discordapp.com/avatars/213250702141554688/6fb143181635b10a32b64089839b75e7.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         Hondolor: `<img src="https://cdn.discordapp.com/avatars/387972854429253632/d41b540f93f2ff719929c51dc717001a.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//ego
         blAnksP: `<img src="https://cdn.discordapp.com/avatars/507714276044308490/4ce4349783a5918d304c4aeda3875748.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         Owlfeathers: `<img src="https://cdn.discordapp.com/avatars/208261759260164096/c1cada24738c68d856e9ad2caa7c5d18.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         R26: `<img src="https://cdn.discordapp.com/avatars/265323729024843776/c8c4b55c9aab5ccab5762c25039186e9.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//magic Man
         KevX: `<img src="https://cdn.discordapp.com/avatars/157267952448700417/55ed8289259fc179001042df35a041b8.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//guy
         Autocarrot: `<img src="https://cdn.discordapp.com/avatars/195859640041472000/a3aa7ae0332f4e11970b4956e7d4a357.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//auto
+        VoidArchon: `<img src="https://cdn.discordapp.com/avatars/483779822426914816/c6f2894aaa7e913f74caa4f58b01386a.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         //name: `<img src="png" width="20" height="20" style="border-radius: 3px;">`,
-
     };
     for (var playerChip of document.getElementsByClassName("playerChip")) {
-        namefull = playerChip.innerText;
-        name = namefull.substring(100, namefull.indexOf(']') + 1);
 
-        hasName = false
+        let namefull = playerChip.innerText;
+        let name = namefull.substring(100, namefull.indexOf(']') + 1);
+        let hasName = false
+
         for (var l in saved_PFP) {
             if (l === name) {
                 playerChip.firstChild.innerHTML = saved_PFP[l]
@@ -37,9 +38,14 @@ function custom_PFP() {
         };
         if (name === `Server`) {
             hasName = true;
+            playerChip.firstChild.innerHTML = ``
         }
         if (hasName === false) {
-            playerChip.firstChild.innerHTML = `<img src="${rankImage(findRank(name))}" width="20" height="20" style="border-radius: 3px;">`
+            if (findRank(name) === 0) {
+                playerChip.firstChild.innerHTML = ``
+            } else {
+                playerChip.firstChild.innerHTML = `<img src="${rankImage(findRank(name))}" width="20" height="20" style="border-radius: 3px;">`
+            }
         }
     };
 };
