@@ -19,6 +19,7 @@ function custom_PFP() {
         blAnksP: `<img src="https://cdn.discordapp.com/avatars/507714276044308490/4ce4349783a5918d304c4aeda3875748.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         Owlfeathers: `<img src="https://cdn.discordapp.com/avatars/208261759260164096/c1cada24738c68d856e9ad2caa7c5d18.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         R26: `<img src="https://cdn.discordapp.com/avatars/265323729024843776/c8c4b55c9aab5ccab5762c25039186e9.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//magic Man
+        KevX: `<img src="https://cdn.discordapp.com/avatars/157267952448700417/55ed8289259fc179001042df35a041b8.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//guy
         //name: `<img src="png" width="20" height="20" style="border-radius: 3px;">`,
 
     };
@@ -33,6 +34,9 @@ function custom_PFP() {
                 hasName = true;
             }
         };
+        if (name === `Server`) {
+            hasName = true;
+        }
         if (hasName === false) {
             playerChip.firstChild.innerHTML = `<img src="${rankImage(findRank(name))}" width="20" height="20" style="border-radius: 3px;">`
         }
