@@ -26,11 +26,16 @@ function custom_PFP() {
         namefull = playerChip.innerText;
         name = namefull.substring(100, namefull.indexOf(']') + 1);
 
+        hasName = false
         for (var l in saved_PFP) {
             if (l === name) {
                 playerChip.firstChild.innerHTML = saved_PFP[l]
-            };
+                hasName = true;
+            }
         };
+        if (hasName === false) {
+            playerChip.firstChild.innerHTML = `<img src="${rankImage(findRank(name))}" width="20" height="20" style="border-radius: 3px;">`
+        }
     };
 };
 
