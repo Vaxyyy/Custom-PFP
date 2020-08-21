@@ -20,6 +20,7 @@ function custom_PFP() {
         Owlfeathers: `<img src="https://cdn.discordapp.com/avatars/208261759260164096/c1cada24738c68d856e9ad2caa7c5d18.png?size=128" width="20" height="20" style="border-radius: 3px;">`,
         R26: `<img src="https://cdn.discordapp.com/avatars/265323729024843776/c8c4b55c9aab5ccab5762c25039186e9.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//magic Man
         KevX: `<img src="https://cdn.discordapp.com/avatars/157267952448700417/55ed8289259fc179001042df35a041b8.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//guy
+        Autocarrot: `<img src="https://cdn.discordapp.com/avatars/195859640041472000/a3aa7ae0332f4e11970b4956e7d4a357.png?size=128" width="20" height="20" style="border-radius: 3px;">`,//auto
         //name: `<img src="png" width="20" height="20" style="border-radius: 3px;">`,
 
     };
