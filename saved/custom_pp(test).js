@@ -1,17 +1,17 @@
-// A mod loader for Istrolid
-
-//edited from r26_modloader
+vaxyyy_customPP = window.vaxyyy_customPP || {
+    account_signinReply: account.signinReply
+};
 
 (function () {
 
     eval(onecup["import"]());
 
-    saved_PFP = {
+    let pps = {
         Vaxyyy: {
             Vaxenford: `https://cdn.discordapp.com/avatars/631395619000549408/f8254af039ebaf9c340b8760b3770e84.png?size=128`, //some rando
             Vaxy: `https://cdn.discordapp.com/avatars/631395619000549408/f8254af039ebaf9c340b8760b3770e84.png?size=128`, //some rando
         },
-        /*
+        
         Gman: {
             Dreamlight: `https://cdn.discordapp.com/attachments/693009932932349993/745835671230611528/niko_smile.png?size=128`,
         },
@@ -75,25 +75,22 @@
         void: {
             VoidArchon: `https://cdn.discordapp.com/avatars/483779822426914816/c6f2894aaa7e913f74caa4f58b01386a.png?size=128`,
         },
-        
+        /*
         main: {
             name: `link`,
         },
         */
     };
-
-    ui.PFP_Settings = function () {
-        ui.inScreen("menu", "Custom PFP", function () {
+    
+    ui.pp_ManagerView = function () {
+        ui.inScreen("menu", "Profile Pictures", function () {
             overflow_y("scroll");
             width(820);
             height(window.innerHeight);
             text_align("center");
 
-            text("Saved PFP");
-            drawPlayers();
-
-            let addBtn = function(push) {
-                div(".hover-white", () => {
+            let addBtn = function () {
+                div(".hover-black", () => {
                     text("Add");
                     text_align("center");
                     padding(10);
@@ -103,51 +100,142 @@
                     });
                 });
             }
-    
+            addBtn();
+            drawPlayers();
             addBtn();
         });
-
-        
     };
 
-    var drawPlayers = function () {
-        for (let main in saved_PFP) {
-            div(".hover-white", () => {
+    let drawPlayers = function () {
+        for (let pp in pps) {
+            let index = pp.indexOf(pps);
+            div(".hover-black", () => {
                 position("relative");
                 text_align("left");
-                padding(5);
-                padding_left(40);
+                padding(10);
+                margin(5);
+                padding_left(32)
 
-                text(main);
-                br();
-                for (let player in saved_PFP[main]) {
+                img(".hover-fade", {
+                    src: "img/ui/upVote.png",
+                    width: 16,
+                    height: 16
+                }, function () {
+                    position("absolute");
+                    top(5);
+                    left(8);
+                    onclick(function (e) {
+                        
+                    });
+                });
+                img(".hover-fade", {
+                    src: "img/ui/downVote.png",
+                    width: 16,
+                    height: 16
+                }, function () {
+                    position("absolute");
+                    top(28);
+                    left(8);
+                    onclick(function (e) {
+                        
+                    });
+                });
+
+                div(() => {
+                    padding(5);
+                    color("white");
+                    text(pp);
+                });
+
+                for (let player in pps[pp]) {
                     div(".hover-white", () => {
                         padding(5);
                         color("white");
+                        padding(5);
                         img({
-                            src: saved_PFP[main][player],
+                            src: pps[pp][player],
                             width: 20,
                             height: 20,
+                            margin: `5px`,
                             style: "border-radius: 3px;"
                         });
-                        text(player);
+                        span(() => {
+                            padding(4);
+                            text_align("center");
+                            text(player);
+                        });
+
+                        span(".hover-black", () => {
+                            position("absolute");
+                            right(94);
+                            padding(4);
+                            text_align("center");
+                            text("Edit");
+                            onclick(e => {
+
+                            });
+                        });
+                        span(".hover-black", () => {
+                            position("absolute");
+                            right(14);
+                            padding(4);
+                            text_align("center");
+                            text("Remove");
+                            onclick(e => {
+
+                            });
+                        });
                     });
                 };
+                div(".hover-black", () => {
+                    position("absolute");
+                    top(5);
+                    right(142);
+                    padding(8);
+                    text_align("center");
+                    text("Add");
+                    onclick(e => {
+
+                    });
+                });
+                div(".hover-black", () => {
+                    position("absolute");
+                    top(5);
+                    right(94);
+                    padding(8);
+                    text_align("center");
+                    text("Edit");
+                    onclick(e => {
+
+                    });
+                });
+                div(".hover-black", () => {
+                    position("absolute");
+                    top(5);
+                    right(14);
+                    padding(8);
+                    text_align("center");
+                    text("Remove");
+                    onclick(e => {
+
+                    });
+                });
             });
         }
     }
 
-    var window_body_orig = window.body;
+    let window_body_orig = window.body;
     window.body = function () {
-        if (ui.mode === "customPFP_Settings") {
-            ui.PFP_Settings();
+        let ret = window_body_orig.call(this);
+        if (ui.mode === "pp_Mgmt") {
+            ui.pp_ManagerView();
         }
-        return window_body_orig.call(this);
+        return ret;
     }
 
-    var ui_menu_orig = ui.menu;
+    let ui_menu_orig = ui.menu;
     ui.menu = function () {
-        var ret = ui_menu_orig.call(this);
+        let ret = ui_menu_orig.call(this);
 
         ui.div_hover_blur(() => {
             position("absolute");
@@ -161,8 +249,8 @@
                 width: 48,
                 height: 48
             }));
-            text("PFP");
-            onclick(e => ui.go("customPFP_Settings"));
+            text("PP");
+            onclick(e => ui.go("pp_Mgmt"));
         });
 
         return ret;
@@ -170,15 +258,15 @@
 
     setInterval(() => {
         for (var playerChip of document.getElementsByClassName("playerChip")) {
-    
+
             let namefull = playerChip.innerText;
             let name = namefull.substring(100, namefull.indexOf(']') + 1);
             let hasName = false
-    
-            for (var main in saved_PFP) {
-                for (var player in saved_PFP[main]) {
+
+            for (var pp in pps) {
+                for (var player in pps[pp]) {
                     if (player === name) {
-                        playerChip.firstChild.innerHTML = `<img src="${saved_PFP[main][player]}" width="20" height="20" style="border-radius: 3px;">`
+                        playerChip.firstChild.innerHTML = `<img src="${pps[pp][player]}" width="20" height="20" style="border-radius: 3px;">`
                         hasName = true;
                     }
                     if (name === `Server`) {
@@ -187,6 +275,7 @@
                     }
                 };
             };
+            /*
             if (hasName === false) {
                 if (findRank(name) === 0) {
                     playerChip.firstChild.innerHTML = ``
@@ -194,6 +283,7 @@
                     playerChip.firstChild.innerHTML = `<img src="${rankImage(findRank(name))}" width="20" height="20" style="border-radius: 3px;">`
                 }
             }
+            */
         };
     }, 50);
 
