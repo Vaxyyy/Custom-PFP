@@ -1,14 +1,10 @@
-vaxyyy_customPP = window.vaxyyy_customPP || {
-    account_signinReply: account.signinReply
-};
-
 (function () {
 
     eval(onecup["import"]());
 
-    let pps = {}
+    let pps = []
     
-    pps = JSON.parse(localStorage.pps)
+    pps = JSON.parse(commander.fleet.pps)
 
     ui.pp_ManagerView = function () {
         ui.inScreen("menu", "Profile Pictures", function () {
@@ -35,8 +31,8 @@ vaxyyy_customPP = window.vaxyyy_customPP || {
     };
 
     let drawPlayers = function () {
-        for (let pp in pps) {
-            let index = pp.indexOf(pps);
+        for (let pp of pps) {
+            let index = pps.indexOf(pp);
             div(".hover-black", () => {
                 position("relative");
                 text_align("left");
@@ -53,7 +49,12 @@ vaxyyy_customPP = window.vaxyyy_customPP || {
                     top(5);
                     left(8);
                     onclick(function (e) {
-                        
+                        let toSwap = index-1;
+                        if(toSwap >= 0) {
+                            tmp = pps[toSwap];
+                            pps[toSwap] = pps[index];
+                            pps[index] = tmp;
+                        }
                     });
                 });
                 img(".hover-fade", {
@@ -65,23 +66,28 @@ vaxyyy_customPP = window.vaxyyy_customPP || {
                     top(28);
                     left(8);
                     onclick(function (e) {
-                        
+                        let toSwap = index+1;
+                        if(toSwap < pps.length) {
+                            tmp = pps[toSwap];
+                            pps[toSwap] = pps[index];
+                            pps[index] = tmp;
+                        }
                     });
                 });
 
                 div(() => {
                     padding(5);
                     color("white");
-                    text(pp);
+                    text(pp.name);
                 });
 
-                for (let player in pps[pp]) {
+                for (let acc in pp.accounts) {
                     div(".hover-white", () => {
                         padding(5);
                         color("white");
                         padding(5);
                         img({
-                            src: pps[pp][player],
+                            src: pp.accounts[acc],
                             width: 20,
                             height: 20,
                             margin: `5px`,
@@ -90,7 +96,7 @@ vaxyyy_customPP = window.vaxyyy_customPP || {
                         span(() => {
                             padding(4);
                             text_align("center");
-                            text(player);
+                            text(acc);
                         });
 
                         span(".hover-black", () => {
@@ -185,33 +191,24 @@ vaxyyy_customPP = window.vaxyyy_customPP || {
     }
 
     setInterval(() => {
+        //pps = JSON.parse(commander.fleet.pps)
+    
         for (var playerChip of document.getElementsByClassName("playerChip")) {
-
+    
             let namefull = playerChip.innerText;
             let name = namefull.substring(100, namefull.indexOf(']') + 1);
-            let hasName = false
-
-            for (var pp in pps) {
-                for (var player in pps[pp]) {
-                    if (player === name) {
-                        playerChip.firstChild.innerHTML = `<img src="${pps[pp][player]}" width="20" height="20" style="border-radius: 3px;">`
-                        hasName = true;
+    
+            for (var pp of pps) {
+    
+                for (var acc in pp.accounts) {
+                    if (acc === name) {
+                        playerChip.firstChild.innerHTML = `<img src="${pp.accounts[acc]}" width="20" height="20" style="border-radius: 3px;">`
                     }
                     if (name === `Server`) {
-                        hasName = true;
                         playerChip.firstChild.innerHTML = ``
                     }
                 };
             };
-            /*
-            if (hasName === false) {
-                if (findRank(name) === 0) {
-                    playerChip.firstChild.innerHTML = ``
-                } else {
-                    playerChip.firstChild.innerHTML = `<img src="${rankImage(findRank(name))}" width="20" height="20" style="border-radius: 3px;">`
-                }
-            }
-            */
         };
     }, 50);
 
