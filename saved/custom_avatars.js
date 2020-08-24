@@ -2,12 +2,12 @@
 
     eval(onecup["import"]());
 
-    let pps = []
+    let avatars = []
     
-    pps = JSON.parse(commander.fleet.pps)
+    avatars = JSON.parse(commander.fleet.avatars)
 
-    ui.pp_ManagerView = function () {
-        ui.inScreen("menu", "Profile Pictures", function () {
+    ui.avatar_ManagerView = function () {
+        ui.inScreen("menu", "Avatars", function () {
             overflow_y("scroll");
             width(820);
             height(window.innerHeight);
@@ -31,8 +31,8 @@
     };
 
     let drawPlayers = function () {
-        for (let pp of pps) {
-            let index = pps.indexOf(pp);
+        for (let avatar of avatars) {
+            let index = avatars.indexOf(avatar);
             div(".hover-black", () => {
                 position("relative");
                 text_align("left");
@@ -51,10 +51,12 @@
                     onclick(function (e) {
                         let toSwap = index-1;
                         if(toSwap >= 0) {
-                            tmp = pps[toSwap];
-                            pps[toSwap] = pps[index];
-                            pps[index] = tmp;
+                            tmp = avatars[toSwap];
+                            avatars[toSwap] = avatars[index];
+                            avatars[index] = tmp;
                         }
+                        commander.fleet.avatars = JSON.stringify(avatars);
+                        account.rootSave();
                     });
                 });
                 img(".hover-fade", {
@@ -67,27 +69,29 @@
                     left(8);
                     onclick(function (e) {
                         let toSwap = index+1;
-                        if(toSwap < pps.length) {
-                            tmp = pps[toSwap];
-                            pps[toSwap] = pps[index];
-                            pps[index] = tmp;
+                        if(toSwap < avatars.length) {
+                            tmp = avatars[toSwap];
+                            avatars[toSwap] = avatars[index];
+                            avatars[index] = tmp;
                         }
+                        commander.fleet.avatars = JSON.stringify(avatars);
+                        account.rootSave();
                     });
                 });
 
                 div(() => {
                     padding(5);
                     color("white");
-                    text(pp.name);
+                    text(avatar.name);
                 });
 
-                for (let acc in pp.accounts) {
+                for (let acc in avatar.accounts) {
                     div(".hover-white", () => {
                         padding(5);
                         color("white");
                         padding(5);
                         img({
-                            src: pp.accounts[acc],
+                            src: avatar.accounts[acc],
                             width: 20,
                             height: 20,
                             margin: `5px`,
@@ -151,7 +155,7 @@
                     text_align("center");
                     text("Remove");
                     onclick(e => {
-
+                        avatars.splice(index, 1);
                     });
                 });
             });
@@ -161,8 +165,8 @@
     let window_body_orig = window.body;
     window.body = function () {
         let ret = window_body_orig.call(this);
-        if (ui.mode === "pp_Mgmt") {
-            ui.pp_ManagerView();
+        if (ui.mode === "avatars_Mgmt") {
+            ui.avatar_ManagerView();
         }
         return ret;
     }
@@ -183,26 +187,24 @@
                 width: 48,
                 height: 48
             }));
-            text("PP");
-            onclick(e => ui.go("pp_Mgmt"));
+            text("Avatars");
+            onclick(e => ui.go("avatars_Mgmt"));
         });
 
         return ret;
     }
 
     setInterval(() => {
-        //pps = JSON.parse(commander.fleet.pps)
-    
         for (var playerChip of document.getElementsByClassName("playerChip")) {
     
             let namefull = playerChip.innerText;
             let name = namefull.substring(100, namefull.indexOf(']') + 1);
     
-            for (var pp of pps) {
+            for (var avatar of avatars) {
     
-                for (var acc in pp.accounts) {
+                for (var acc in avatar.accounts) {
                     if (acc === name) {
-                        playerChip.firstChild.innerHTML = `<img src="${pp.accounts[acc]}" width="20" height="20" style="border-radius: 3px;">`
+                        playerChip.firstChild.innerHTML = `<img src="${avatar.accounts[acc]}" width="20" height="20" style="border-radius: 3px;">`
                     }
                     if (name === `Server`) {
                         playerChip.firstChild.innerHTML = ``
