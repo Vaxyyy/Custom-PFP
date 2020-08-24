@@ -11,7 +11,7 @@
             Vaxenford: `https://cdn.discordapp.com/avatars/631395619000549408/f8254af039ebaf9c340b8760b3770e84.png?size=128`, //some rando
             Vaxy: `https://cdn.discordapp.com/avatars/631395619000549408/f8254af039ebaf9c340b8760b3770e84.png?size=128`, //some rando
         },
-        /*
+        
         Gman: {
             Dreamlight: `https://cdn.discordapp.com/attachments/693009932932349993/745835671230611528/niko_smile.png?size=128`,
         },
@@ -75,7 +75,7 @@
         void: {
             VoidArchon: `https://cdn.discordapp.com/avatars/483779822426914816/c6f2894aaa7e913f74caa4f58b01386a.png?size=128`,
         },
-        
+        /*
         main: {
             name: `link`,
         },
@@ -92,19 +92,6 @@
             text("Saved PFP");
             drawPlayers();
 
-            let addBtn = function(push) {
-                div(".hover-white", () => {
-                    text("Add");
-                    text_align("center");
-                    padding(10);
-                    margin(5);
-                    onclick(e => {
-                        
-                    });
-                });
-            }
-    
-            addBtn();
         });
 
         
@@ -188,11 +175,15 @@
                 };
             };
             if (hasName === false) {
+                /*
                 if (findRank(name) === 0) {
                     playerChip.firstChild.innerHTML = ``
-                } else {
+                } 
+                
+                else {
                     playerChip.firstChild.innerHTML = `<img src="${rankImage(findRank(name))}" width="20" height="20" style="border-radius: 3px;">`
                 }
+                */
             }
         };
     }, 50);
