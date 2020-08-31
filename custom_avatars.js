@@ -3,8 +3,22 @@
     eval(onecup["import"]());
 
     let avatars = []
-    
-    avatars = JSON.parse(commander.fleet.avatars)
+
+    let saveAvatarInfo = function () {
+        commander.fleet.avatars = JSON.stringify(avatars);
+        account.rootSave();
+    }
+
+    let loadAvatarInfo = function () {
+        if (!window.commander) {
+            setTimeout(loadAvatarInfo, 1000);
+            return;
+        }
+        if (commander.fleet.avatars) {
+            avatars = JSON.parse(commander.fleet.avatars)
+        }
+    }
+    loadAvatarInfo();
 
     ui.avatar_ManagerView = function () {
         ui.inScreen("menu", "Avatars", function () {
@@ -12,7 +26,18 @@
             width(820);
             height(window.innerHeight);
             text_align("center");
-
+            
+            div(".hover-black", () => {
+                text("rootSave");
+                text_align("center");
+                padding(10);
+                margin(5);
+                onclick(e => {
+                    console.log("rootSave")
+                    console.log(avatars)
+                    saveAvatarInfo();
+                });
+            });
             let addBtn = function () {
                 div(".hover-black", () => {
                     text("Add");
@@ -20,11 +45,17 @@
                     padding(10);
                     margin(5);
                     onclick(e => {
-                        
+                        avatars.push({
+                            "name": "fileName",
+                            "enabled": false,
+                            "accounts": {
+                                "accountName": "https://cdn.iconscout.com/icon/free/png-256/work-in-progress-457150.png"
+                            }
+                        })
                     });
                 });
             }
-            addBtn();
+
             drawPlayers();
             addBtn();
         });
@@ -49,14 +80,13 @@
                     top(5);
                     left(8);
                     onclick(function (e) {
-                        let toSwap = index-1;
-                        if(toSwap >= 0) {
-                            tmp = avatars[toSwap];
+                        let toSwap = index - 1;
+                        if (toSwap >= 0) {
+                            ref1 = avatars[toSwap];
                             avatars[toSwap] = avatars[index];
-                            avatars[index] = tmp;
+                            avatars[index] = ref1;
                         }
-                        commander.fleet.avatars = JSON.stringify(avatars);
-                        account.rootSave();
+                        saveAvatarInfo();
                     });
                 });
                 img(".hover-fade", {
@@ -68,14 +98,13 @@
                     top(28);
                     left(8);
                     onclick(function (e) {
-                        let toSwap = index+1;
-                        if(toSwap < avatars.length) {
-                            tmp = avatars[toSwap];
+                        let toSwap = index + 1;
+                        if (toSwap < avatars.length) {
+                            ref1 = avatars[toSwap];
                             avatars[toSwap] = avatars[index];
-                            avatars[index] = tmp;
+                            avatars[index] = ref1;
                         }
-                        commander.fleet.avatars = JSON.stringify(avatars);
-                        account.rootSave();
+                        saveAvatarInfo();
                     });
                 });
 
@@ -102,15 +131,33 @@
                             text_align("center");
                             text(acc);
                         });
-
                         span(".hover-black", () => {
                             position("absolute");
                             right(94);
                             padding(4);
                             text_align("center");
-                            text("Edit");
+                            text("Edit link");
                             onclick(e => {
-
+                                let ref1 = prompt("change link", avatar.accounts[acc]);
+                                if (ref1 !== null) {
+                                    avatar.accounts[acc] = ref1;
+                                    saveAvatarInfo();
+                                }
+                            });
+                        });
+                        span(".hover-black", () => {
+                            position("absolute");
+                            right(160);
+                            padding(4);
+                            text_align("center");
+                            text("Edit name");
+                            onclick(e => {
+                                let ref1 = prompt("change name", acc);
+                                if (ref1 !== null) {
+                                    avatar.accounts[ref1] = avatar.accounts[acc];
+                                    delete avatar.accounts[acc]
+                                    saveAvatarInfo();
+                                }
                             });
                         });
                         span(".hover-black", () => {
@@ -120,23 +167,43 @@
                             text_align("center");
                             text("Remove");
                             onclick(e => {
-
+                                delete avatar.accounts[acc];
+                                saveAvatarInfo();
                             });
                         });
                     });
                 };
-                div(".hover-black", () => {
+                span(".hover-black", () => {
                     position("absolute");
                     top(5);
-                    right(142);
+                    right(190);
+                    padding(8);
+                    text_align("center");
+                    if (avatar.enabled) {
+                        text("Disable");
+                        onclick(e => {
+                            avatar.enabled = false;
+                        });
+                    } else {
+                        text("Enable");
+                        onclick(e => {
+                            avatar.enabled = true;
+                        });
+                    }
+                });
+                span(".hover-black", () => {
+                    position("absolute");
+                    top(5);
+                    right(138);
                     padding(8);
                     text_align("center");
                     text("Add");
                     onclick(e => {
-
+                        avatar.accounts.accountName = "https://cdn.iconscout.com/icon/free/png-256/work-in-progress-457150.png"
+                        saveAvatarInfo();
                     });
                 });
-                div(".hover-black", () => {
+                span(".hover-black", () => {
                     position("absolute");
                     top(5);
                     right(94);
@@ -144,10 +211,14 @@
                     text_align("center");
                     text("Edit");
                     onclick(e => {
-
+                        let ref1 = prompt("change name", avatar.name);
+                        if (ref1 !== null) {
+                            avatar.name = ref1
+                            saveAvatarInfo();
+                        }
                     });
                 });
-                div(".hover-black", () => {
+                span(".hover-black", () => {
                     position("absolute");
                     top(5);
                     right(14);
@@ -155,7 +226,8 @@
                     text_align("center");
                     text("Remove");
                     onclick(e => {
-                        avatars.splice(index, 1);
+                        avatars.splice(index, 1)
+                        saveAvatarInfo();
                     });
                 });
             });
@@ -196,22 +268,31 @@
 
     setInterval(() => {
         for (var playerChip of document.getElementsByClassName("playerChip")) {
-    
+
             let namefull = playerChip.innerText;
             let name = namefull.substring(100, namefull.indexOf(']') + 1);
-    
+            let hasName = false;
+
             for (var avatar of avatars) {
-    
-                for (var acc in avatar.accounts) {
-                    if (acc === name) {
-                        playerChip.firstChild.innerHTML = `<img src="${avatar.accounts[acc]}" width="20" height="20" style="border-radius: 3px;">`
-                    }
-                    if (name === `Server`) {
-                        playerChip.firstChild.innerHTML = ``
+                if (avatar.enabled) {
+                    for (var acc in avatar.accounts) {
+                        if (acc === name) {
+                            playerChip.firstChild.innerHTML = `<img src="${avatar.accounts[acc]}" width="20" height="20" style="border-radius: 3px;">`;
+                            hasName = true;
+                        }
+                        if (name === `Server`) {
+                            playerChip.firstChild.innerHTML = ``;
+                            hasName = true;
+                        }
+                    };
+                    if (hasName === false) {
+                        if (findRank(name) === 0)
+                            playerChip.firstChild.innerHTML = `<img src="https://i.imgur.com/efgV3j8.png" width="20" height="20" style="border-radius: 3px;">`;
+                        else
+                            playerChip.firstChild.innerHTML = `<img src="${rankImage(findRank(name))}" width="20" height="20" style="border-radius: 3px;">`;
                     }
                 };
             };
         };
     }, 50);
-
 }).call(this);
