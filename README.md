@@ -1,4 +1,9 @@
-# Notes
+# custom-avatars
+
+<!--
+  hey thanks for looking at my code
+  if you see anything wrong make an Issue it will help, thanks :)
+-->
 
 <a href="https://github.com/Vaxyyy/custom-avatars/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Vaxyyy/custom-avatars?style=flat-square"></a>
 
@@ -9,7 +14,7 @@
 - [ ] add edit box so not using `prompt()`
 - [ ] change enable and disable to slider/on of switch
 - [ ] declutter `avatar_ManagerView` ui
-- [ ] add it so nick name can change players displayed name with switch
+- [ ] add it so nick name can change players displayed name with slider/on of switch
 
 ## Done
 
@@ -20,3 +25,6 @@
 ## NoMore
 
 - [ ] get the images to auto update from discord
+
+## Roadmap
+<a href="https://trello.com/b/StHcQEWG">map</a>
