@@ -1,3 +1,4 @@
+commander.fleet.avatars = ""
 commander.fleet.avatars = `[{
         "name": "Vaxyyy",
         "enabled": true,
