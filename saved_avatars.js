@@ -90,6 +90,62 @@ commander.fleet.avatars = `[{
             "TMSC9000": "https://cdn.discordapp.com/avatars/392593613575684096/72c2795027b5a823a912fd21a866211b.png?size=128",
             "AIassimilator": "https://cdn.discordapp.com/avatars/392593613575684096/72c2795027b5a823a912fd21a866211b.png?size=128"
         }
+    },
+    {
+        "name": "CyborgHornet",
+        "enabled": true,
+        "accounts": {
+            "CyborgHornet": "https://cdn.discordapp.com/avatars/674707988581187668/ebd0e7ce2b0ccc5612bf1dc44279bb27.png?size=128"
+        }
+    },
+    {
+        "name": "Pope",
+        "enabled": true,
+        "accounts": {
+            "Popecicle": "https://cdn.discordapp.com/avatars/213250702141554688/6fb143181635b10a32b64089839b75e7.png?size=128"
+        }
+    },
+    {
+        "name": "hon",
+        "enabled": true,
+        "accounts": {
+            "Hondolor": "https://cdn.discordapp.com/avatars/387972854429253632/d41b540f93f2ff719929c51dc717001a.png?size=128"
+        }
+    },
+    {
+        "name": "__",
+        "enabled": true,
+        "accounts": {
+            "blAnksP": "https://cdn.discordapp.com/avatars/507714276044308490/4ce4349783a5918d304c4aeda3875748.png?size=128"
+        }
+    },
+    {
+        "name": "magic_Man",
+        "enabled": true,
+        "accounts": {
+            "R26": "https://cdn.discordapp.com/avatars/265323729024843776/c8c4b55c9aab5ccab5762c25039186e9.png?size=128"
+        }
+    },
+    {
+        "name": "Owl",
+        "enabled": true,
+        "accounts": {
+            "Owlfeathers": "https://cdn.discordapp.com/avatars/208261759260164096/c1cada24738c68d856e9ad2caa7c5d18.png?size=128"
+        }
+    },
+    {
+        "name": "guy",
+        "enabled": true,
+        "accounts": {
+            "KevX": "https://cdn.discordapp.com/avatars/157267952448700417/55ed8289259fc179001042df35a041b8.png?size=128"
+        }
+    },
+    {
+        "name": "void",
+        "enabled": true,
+        "accounts": {
+            "VoidArchon": "https://cdn.discordapp.com/avatars/483779822426914816/c6f2894aaa7e913f74caa4f58b01386a.png?size=128"
+        }
     }
 ]`
 account.rootSave();
