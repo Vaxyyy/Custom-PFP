@@ -5,7 +5,20 @@
   if you see anything wrong make an Issue it will help, thanks :)
 -->
 
+## How do i use this
+
+don’t.
+
+like right now it buggy.
+
+it only works in chrome; dose not work on steam or opera like in opera there is a 404 error and only in opera that I don’t even know why it happing.
+
+I don’t trust it myself.
+
+Like look \\\/
+
 <a href="https://github.com/Vaxyyy/custom-avatars/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Vaxyyy/custom-avatars?style=flat-square"></a>
+
 
 ## ToDo
 
