@@ -1,9 +1,19 @@
 # Notes
 
-### ToDo
-- [x] add it so there if users friendly UI to add new `avatars`
-- [ ] edit dose not use `prompt()` so steam users can edit
-- [ ] expand `saved_avatars`
+## ToDo
 
-### NoMore
+- [ ] load icons even if name is cut off when in battle mode
+- [ ] more effectively load icons onto chat
+- [ ] add edit box so not using `prompt()`
+- [ ] change enable and disable to slider/on of switch
+- [ ] declutter `avatar_ManagerView` ui
+
+## Done
+
+- [x] load `avatars` form localstorage
+- [x] add enable and disable 
+- [X] expand `saved_avatars`
+
+## NoMore
+
 - [ ] get the images to auto update from discord
