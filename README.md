@@ -25,6 +25,3 @@
 ## NoMore
 
 - [ ] get the images to auto update from discord
-
-## Roadmap
-<a href="https://trello.com/b/StHcQEWG">map</a>
