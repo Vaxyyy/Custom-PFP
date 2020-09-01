@@ -38,6 +38,17 @@
                     saveAvatarInfo();
                 });
             });
+
+            var editBox = function() {
+                div(() => {
+                    text("Edit Window");
+                    text_align("center");
+                    padding(10);
+                    margin(5);
+                    //idk how to start this
+                });
+            };
+
             let addBtn = function () {
                 div(".hover-black", () => {
                     text("Add");
