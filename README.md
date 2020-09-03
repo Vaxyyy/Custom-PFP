@@ -15,7 +15,7 @@ it only works in chrome; dose not work on steam or opera like in opera there is 
 
 I don’t trust it myself.
 
-Like look \\\/
+Like look `\/`
 
 <a href="https://github.com/Vaxyyy/custom-avatars/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Vaxyyy/custom-avatars?style=flat-square"></a>
 
