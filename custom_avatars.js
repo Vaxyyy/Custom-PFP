@@ -26,7 +26,6 @@
     css(".hover-white-gray:hover", function () {
         return background_color("rgba(255,255,255,.2)");
     });
-
     css(".hover-black-whiteText", function () {
         color("gray")
         background_color("rgba(0,0,0,.2)");
@@ -77,206 +76,108 @@
                     });
                 });
             };
-            var editBox = function () {
-                div(() => {
-                    position("fixed");
-                    top(window.innerHeight / 2 - 100);
-                    left(window.innerWidth / 2 - 225);
-                    width(450);
-                    padding(20);
-                    text_align("center");
-                    background_color("rgba(0,0,0,.8)");
-                    text("Name");
-                    br();
-                    textarea("#avatar-name", () => {
-                        width("100%");
-                        margin(5);
-                        background_color("rgba(0,0,0,.8)");
-                        color("white");
-                        text(avatar.name);
-                        oninput(e => {
-                            avatar.name = e.target.value;
-                        });
-                    });
-                });
+
+            var editBox = function (avatar, index) {
+                console.log(avatar)
+                console.log(index);
             };
 
-            drawPlayers();
-            addBtn();
-        });
-    };
-
-    let drawPlayers = function () {
-        for (let avatar of avatars) {
-            let index = avatars.indexOf(avatar);
-
-
-            div(() => {
-                position("relative");
-                text_align("left");
-                background_color("rgba(0,0,0,.2)")
-                border_radius("15px");
-
-                padding(10);
-                margin(10);
-
-                span(() => {
-                    position("absolute");
-                    padding(10);
-                    top(10);
-                    left(30)
-                    text(avatar.name);
-                });
-                span(() => {
-                    position("relative");
-                    padding(5);
-                    width(35)
-                    img(".hover-fade", {
-                        src: "img/ui/upVote.png",
-                        width: 16,
-                        height: 16
-                    }, function () {
-                        onclick(function (e) {
-                            let toSwap = index - 1;
-                            if (toSwap >= 0) {
-                                ref1 = avatars[toSwap];
-                                avatars[toSwap] = avatars[index];
-                                avatars[index] = ref1;
-                            }
-                            saveAvatarInfo();
-                        });
-                    });
-                });
-                br()
-                span(() => {
-                    position("relative");
-                    padding(5);
-                    width(35)
-                    img(".hover-fade", {
-                        src: "img/ui/downVote.png",
-                        width: 16,
-                        height: 16
-                    }, function () {
-                        onclick(function (e) {
-                            let toSwap = index + 1;
-                            if (toSwap < avatars.length) {
-                                ref1 = avatars[toSwap];
-                                avatars[toSwap] = avatars[index];
-                                avatars[index] = ref1;
-                            }
-                            saveAvatarInfo();
-                        });
-                    });
-                });
-                span(() => {
-                    position("absolute");
-                    border_radius("15px");
-                    padding(1);
-                    right(130)
-                    top(10);
-                    img(".hover-fade", {
-                        src: "img/ui/add.png",
-                        width: 28,
-                        height: 28
-                    }, function () {
-                        onclick(function (e) {
-                            avatar.accounts.push({
-                                "name": "accountName",
-                                "enabled": true,
-                                "img": "https://cdn.iconscout.com/icon/free/png-256/work-in-progress-457150.png",
-                            });
-                            saveAvatarInfo();
-                        });
-                    });
-                });
-                span(".hover-black-whiteText", () => {
-                    position("absolute");
-                    border_radius("15px");
-                    padding(1);
-                    right(20)
-                    top(10);
-                    img(".hover-fade", {
-                        src: "img/ui/trash.png",
-                        width: 28,
-                        height: 28
-                    }, function () {
-                        onclick(function (e) {
-                            avatars.splice(index, 1)
-                            saveAvatarInfo();
-                        });
-                    });
-                });
-                span(".hover-black-whiteText", () => {
-                    position("absolute");
-                    border_radius("15px");
-                    padding(5);
-                    right(100)
-                    top(10);
-                    if (avatar.enabled) {
-                        text("☒");
-                        onclick(e => {
-                            avatar.enabled = false;
-                        });
-                    } else {
-                        text("☐");
-                        onclick(e => {
-                            avatar.enabled = true;
-                        });
-                    };
-                });
-                span(".hover-black-whiteText", () => {
-                    position("absolute");
-                    border_radius("15px");
-                    padding(1);
-                    right(60)
-                    top(10);
-                    img(".hover-fade", {
-                        src: "img/ui/settings.png",
-                        width: 28,
-                        height: 28
-                    }, function () {
-                        onclick(function (e) {
-
-                        });
-                    });
-                });
-                for (let account of avatar.accounts) {
-                    let index = avatar.accounts.indexOf(account);
-                    div(".hover-white", () => {
-
+            let drawPlayers = function () {
+                for (let avatar of avatars) {
+                    let index = avatars.indexOf(avatar);
+        
+        
+                    div(() => {
+                        position("relative");
+                        text_align("left");
+                        background_color("rgba(0,0,0,.2)")
                         border_radius("15px");
-                        padding(5);
-                        margin(5);
-
+        
+                        padding(10);
+                        margin(10);
+        
+                        span(() => {
+                            position("absolute");
+                            padding(10);
+                            top(10);
+                            left(30)
+                            text(avatar.name);
+                        });
                         span(() => {
                             position("relative");
                             padding(5);
-                            img({
-                                src: account.img,
-                                width: 32,
-                                height: 32,
-                                margin: `5px`,
-                                style: "border-radius: 5px;"
+                            width(35)
+                            img(".hover-fade", {
+                                src: "img/ui/upVote.png",
+                                width: 16,
+                                height: 16
+                            }, function () {
+                                onclick(function (e) {
+                                    let toSwap = index - 1;
+                                    if (toSwap >= 0) {
+                                        ref1 = avatars[toSwap];
+                                        avatars[toSwap] = avatars[index];
+                                        avatars[index] = ref1;
+                                    }
+                                    saveAvatarInfo();
+                                });
+                            });
+                        });
+                        br()
+                        span(() => {
+                            position("relative");
+                            padding(5);
+                            width(35)
+                            img(".hover-fade", {
+                                src: "img/ui/downVote.png",
+                                width: 16,
+                                height: 16
+                            }, function () {
+                                onclick(function (e) {
+                                    let toSwap = index + 1;
+                                    if (toSwap < avatars.length) {
+                                        ref1 = avatars[toSwap];
+                                        avatars[toSwap] = avatars[index];
+                                        avatars[index] = ref1;
+                                    }
+                                    saveAvatarInfo();
+                                });
                             });
                         });
                         span(() => {
-                            position("relative");
-                            padding(5);
-                            text(account.name);
+                            position("absolute");
+                            border_radius("15px");
+                            padding(1);
+                            right(130)
+                            top(10);
+                            img(".hover-fade", {
+                                src: "img/ui/add.png",
+                                width: 28,
+                                height: 28
+                            }, function () {
+                                onclick(function (e) {
+                                    avatar.accounts.push({
+                                        "name": "accountName",
+                                        "enabled": true,
+                                        "img": "https://cdn.iconscout.com/icon/free/png-256/work-in-progress-457150.png",
+                                    });
+                                    saveAvatarInfo();
+                                });
+                            });
                         });
-
                         span(".hover-black-whiteText", () => {
                             position("absolute");
                             border_radius("15px");
                             padding(1);
                             right(20)
+                            top(10);
                             img(".hover-fade", {
                                 src: "img/ui/trash.png",
                                 width: 28,
                                 height: 28
                             }, function () {
                                 onclick(function (e) {
-                                    avatar.accounts.splice(index, 1)
+                                    avatars.splice(index, 1)
                                     saveAvatarInfo();
                                 });
                             });
@@ -286,15 +187,16 @@
                             border_radius("15px");
                             padding(5);
                             right(100)
-                            if (account.enabled) {
+                            top(10);
+                            if (avatar.enabled) {
                                 text("☒");
                                 onclick(e => {
-                                    account.enabled = false;
+                                    avatar.enabled = false;
                                 });
                             } else {
                                 text("☐");
                                 onclick(e => {
-                                    account.enabled = true;
+                                    avatar.enabled = true;
                                 });
                             };
                         });
@@ -303,20 +205,101 @@
                             border_radius("15px");
                             padding(1);
                             right(60)
+                            top(10);
                             img(".hover-fade", {
                                 src: "img/ui/settings.png",
                                 width: 28,
                                 height: 28
                             }, function () {
                                 onclick(function (e) {
-
+                                    editBox(avatar, index)
                                 });
                             });
                         });
+                        for (let account of avatar.accounts) {
+                            let index = avatar.accounts.indexOf(account);
+                            div(".hover-white", () => {
+        
+                                border_radius("15px");
+                                padding(5);
+                                margin(5);
+        
+                                span(() => {
+                                    position("relative");
+                                    padding(5);
+                                    img({
+                                        src: account.img,
+                                        width: 32,
+                                        height: 32,
+                                        margin: `5px`,
+                                        style: "border-radius: 5px;"
+                                    });
+                                });
+                                span(() => {
+                                    position("relative");
+                                    padding(5);
+                                    text(account.name);
+                                });
+        
+                                span(".hover-black-whiteText", () => {
+                                    position("absolute");
+                                    border_radius("15px");
+                                    padding(1);
+                                    right(20)
+                                    img(".hover-fade", {
+                                        src: "img/ui/trash.png",
+                                        width: 28,
+                                        height: 28
+                                    }, function () {
+                                        onclick(function (e) {
+                                            avatar.accounts.splice(index, 1)
+                                            saveAvatarInfo();
+                                        });
+                                    });
+                                });
+                                span(".hover-black-whiteText", () => {
+                                    position("absolute");
+                                    border_radius("15px");
+                                    padding(5);
+                                    right(100)
+                                    if (account.enabled) {
+                                        text("☒");
+                                        onclick(e => {
+                                            account.enabled = false;
+                                        });
+                                    } else {
+                                        text("☐");
+                                        onclick(e => {
+                                            account.enabled = true;
+                                        });
+                                    };
+                                });
+                                span(".hover-black-whiteText", () => {
+                                    position("absolute");
+                                    border_radius("15px");
+                                    padding(1);
+                                    right(60)
+                                    img(".hover-fade", {
+                                        src: "img/ui/settings.png",
+                                        width: 28,
+                                        height: 28
+                                    }, function () {
+                                        onclick(function (e) {
+        
+                                        });
+                                    });
+                                });
+                            });
+                        }
                     });
-                }
-            });
-        };
+                };
+            };
+            drawPlayers();
+            addBtn();
+
+            
+        
+        });
     };
 
     let window_body_orig = window.body;
