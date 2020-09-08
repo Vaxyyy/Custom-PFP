@@ -1,7 +1,6 @@
 commander.fleet.avatars = [{
     "name": "Vaxyyy",
     "enabled": true,
-    "package": "default-discord",
     "accounts": [{
             "name": "Vaxenford",
             "enabled": false,
@@ -17,7 +16,6 @@ commander.fleet.avatars = [{
 {
     "name": "Gman",
     "enabled": true,
-    "package": "default-discord",
     "accounts": [{
             "name": "Gameinglo",
             "enabled": true,
@@ -33,7 +31,6 @@ commander.fleet.avatars = [{
 {
     "name": "<3",
     "enabled": false,
-    "package": "default-discord",
     "accounts": [{
             "name": "LSC",
             "enabled": true,
